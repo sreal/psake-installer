@@ -1,0 +1,4 @@
+psake-installer
+===============
+
+psake-installer
