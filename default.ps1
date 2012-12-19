@@ -218,8 +218,7 @@ Function Copy-File-or-Directory( $file, $source_path, $dest_path) {
   $to_file   = Join-Path $dest_path $file
 
   if ( -not (Test-Path $from_file) ) {
-#    Write-Host x -Fore RED -NoNewLine
-    Write-Host $from_file -Fore RED
+    Write-Host x -Fore RED -NoNewLine
     Return
   }
 
@@ -246,10 +245,10 @@ Function Copy-File-or-Directory( $file, $source_path, $dest_path) {
 Function Get-Config {
   switch -regex ($env:COMPUTERNAME)
     {
-      '<<TEST_CONFIG>>' { return Config_TEST  }
-      '<<STAGE_CONFIG>>' { return Config_STAGE }
-      '<<UAT_CONFIG>>' { return Config_UAT   }
-      '<<PROD_CONFIG>>' { return Config_PROD  }
+      '[[TEST_CONFIG]]' { return Config_TEST  }
+      '[[STAGE_CONFIG]]' { return Config_STAGE }
+      '[[UAT_CONFIG]]' { return Config_UAT   }
+      '[[PROD_CONFIG]]' { return Config_PROD  }
       default        { return Config_DEV   }
     }
 }
