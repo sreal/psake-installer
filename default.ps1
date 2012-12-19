@@ -8,7 +8,7 @@
 
 properties {
   $base_dir    = Resolve-Path .
-  $projectpath = "$base_dir/../ADFC.FuseTalk/"
+  $projectpath = "C:\projects\cadetnet\cadetnet-cmc4\ADFC.FuseTalk"
   $this_file   = "default.ps1"
   $config      = Get-Config
 [[INCLUDE_FILES]]
@@ -16,7 +16,7 @@ properties {
   $config_enviroments = @( "PROD", "UAT", "STAGE", "TEST", "DEV" )
   $config_format = "{0}.{1}" # 0 is file and 1 is environment
   $zip_source = "tmp_to_delete\"
-  $package_name = "InstallPackage.zip"
+  $package_name = "C:\Projects\tmp\FuseTalkInstallPackage.zip"
   $script_files =  @($this_file)
 }
 
@@ -218,7 +218,8 @@ Function Copy-File-or-Directory( $file, $source_path, $dest_path) {
   $to_file   = Join-Path $dest_path $file
 
   if ( -not (Test-Path $from_file) ) {
-    Write-Host x -Fore RED -NoNewLine
+#    Write-Host x -Fore RED -NoNewLine
+    Write-Host $from_file -Fore RED
     Return
   }
 
