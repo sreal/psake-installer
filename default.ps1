@@ -4,11 +4,16 @@
 #   > Invoke-Psake Package
 #   > Invoke-Psake Install
 #   > Invoke-Psake Uninstall
+#
+# Required Modules:
+#   Pscx: http://pscx.codeplex.com/
+#   Psake: https://github.com/psake/psake
+
 
 
 properties {
   $base_dir    = Resolve-Path .
-  $projectpath = "C:\projects\cadetnet\cadetnet-cmc4\ADFC.FuseTalk"
+  $projectpath = "[[PATH_TO_PROJECT]]"
   $this_file   = "default.ps1"
   $config      = Get-Config
 [[INCLUDE_FILES]]
@@ -16,7 +21,7 @@ properties {
   $config_enviroments = @( "PROD", "UAT", "STAGE", "TEST", "DEV" )
   $config_format = "{0}.{1}" # 0 is file and 1 is environment
   $zip_source = "tmp_to_delete\"
-  $package_name = "C:\Projects\tmp\FuseTalkInstallPackage.zip"
+  $package_name = "[[FINAL_PACKAGE_LOCATION]]"
   $script_files =  @($this_file)
 }
 
@@ -172,7 +177,7 @@ task SetupSession {
     Write-Error "SETUP ERROR: You MUST have PSake (https://github.com/psake/psake/) installed!"
     Exit
   }
-  Import-Module pscx
+  Import-Module psake
 }
 
 
@@ -204,6 +209,8 @@ task Package -depends Clean, SetupSession {
   catch { Write-Host x -Fore RED  -NoNewLine; }
   Write-Host ' : Done' -Fore Gray
 
+  Write-Host Package Created: $package_name
+  
   Remove-Item $zip_source -Recurse -Force
 
 }
